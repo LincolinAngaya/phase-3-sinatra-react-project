@@ -3,7 +3,7 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here get "/" do
     { message: "Good luck with your project!" }.to_json
-  end
+  
 
   #add routes here
   
@@ -43,8 +43,10 @@ class ApplicationController < Sinatra::Base
   post "/reviews" do
     reviews = Review.create(
       comment: params[:comment], 
-      username: params[:username]
-      restaraunt_id: params[:restaraunt_id_])
+       user_id: params[:user_id],
+       restaraunt_id: params[:restaraunt_id]
+      )
+
     reviews.to_json
   end
 
@@ -52,19 +54,21 @@ class ApplicationController < Sinatra::Base
   # patch  method to update  review in the application
     
   patch '/reviews/:id' do
-    review = Review.find(params[:id])
-    review.update(
+    reviews = Review.find(params[:id])
+    reviews.update(
       comment: params[:comment], 
-      restaraunt_id: params[:restaraunt_id_])
-    review.to_json
+      user_id: params[:user_id]
+      )
+
+      reviews.to_json
   end
 
    # delete  method to delete review in the application
 
    delete '/reviews/:id' do 
-    review = Review.find(params[:id])
-    review.destroy
-    review.to_json
+     reviews = Review.find(params[:id])
+     reviews.destroy
+     reviews.to_json
   end
 
 
