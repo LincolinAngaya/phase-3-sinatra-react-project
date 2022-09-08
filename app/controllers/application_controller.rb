@@ -11,7 +11,7 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
-  # get  method to fetch  restaraunt with its  in the application
+  # get  method to fetch  restaraunt with   in the application
 
   get '/restaraunts' do
     
@@ -22,6 +22,19 @@ class ApplicationController < Sinatra::Base
         user: { only: [:username, :created_at] }
       } }
     })
+  end
+
+   # get  method to fetch  reviews   in the application
+
+   get '/reviews' do
+    
+    reviews = Review.all.order(:id)
+   
+    reviews.to_json(only: [:comment], include: {
+     
+        user: { only: [:username, :created_at] }
+      } 
+    )
   end
 
 # post method to add restaraunt in the application
