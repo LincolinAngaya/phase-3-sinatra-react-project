@@ -7,7 +7,7 @@ class ApplicationController < Sinatra::Base
 
   #add routes here
 
-  #post method to log in
+  # post method to log in
   
   post "/login" do
     admin = Admin.find_by(email: params[:email], password: params[:password])
@@ -15,7 +15,7 @@ class ApplicationController < Sinatra::Base
     if admin != nil
       admin.to_json(only: [:id, :firstname, :email])
     else
-      response = {response: "Invalid Username or Password"}
+      response = {response: "Invalid email or Password"}
       response.to_json
     end
   end
@@ -109,14 +109,18 @@ class ApplicationController < Sinatra::Base
 
   # patch  method to update  review in the application
     
-  patch '/reviews/:id' do
-    reviews = Review.find(params[:id])
-    reviews.update(
-      comment: params[:comment], 
-      user_id: params[:user_id]
+  patch '/restaraunts/:id' do
+    restaraunts = Restaraunt.find(params[:id])
+    restaraunts.update(
+      image_url: params[:image_url],
+      name: params[:name],
+      phone_number: params[:phone_number],
+      location: params[:location],
+      description: params[:description]
+
       )
 
-      reviews.to_json
+      restaraunts.to_json
   end
 
    # delete  method to delete review in the application
