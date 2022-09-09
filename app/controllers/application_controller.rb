@@ -7,14 +7,37 @@ class ApplicationController < Sinatra::Base
 
   #add routes here
 
+  #post method to log in
+  
+  post "/login" do
+    admin = Admin.find_by(email: params[:email], password: params[:password])
 
-  delete '/restaraunts/:id' do 
-    restaraunt = Restaraunt.find(params[:id])
-    restaraunts.destroy
-    restaraunts.to_json
- end
+    if admin != nil
+      admin.to_json(only: [:id, :firstname, :email])
+    else
+      response = {response: "Invalid Username or Password"}
+      response.to_json
+    end
+  end
 
+  #post method to log in
 
+  post "/create-account" do
+    existingAdmin = Admin.find_by(email: params[:email])
+
+    if existingAdmin != nil
+      response = {response: "User already Exists"}
+      response.to_json
+    else
+      newAdmin = Admin.create(
+        firstname: params[:firstname],
+        lastname: params[:lastname],
+        email: params[:email],  
+        password: params[:password]
+      )
+      newAdmin.to_json(only: [:id, :firstname, :email])
+    end
+  end
 
 
 
