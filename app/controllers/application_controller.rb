@@ -6,6 +6,26 @@ class ApplicationController < Sinatra::Base
   
 
   #add routes here
+
+
+  delete '/restaraunts/:id' do 
+    restaraunt = Restaraunt.find(params[:id])
+    restaraunts.destroy
+    restaraunts.to_json
+ end
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   get "/" do
     { message: "Good luck with your project!" }.to_json

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_08_122908) do
+ActiveRecord::Schema.define(version: 2022_09_09_160854) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "firstname"
+    t.string "lastname"
+    t.string "email"
+    t.string "password"
+  end
 
   create_table "restaraunts", force: :cascade do |t|
     t.string "image_url"
@@ -18,6 +25,7 @@ ActiveRecord::Schema.define(version: 2022_09_08_122908) do
     t.string "location"
     t.integer "phone_number"
     t.string "description"
+    t.integer "admin_id"
   end
 
   create_table "reviews", force: :cascade do |t|
